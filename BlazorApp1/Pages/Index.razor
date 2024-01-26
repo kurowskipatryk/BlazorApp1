@@ -1,9 +1,114 @@
 ﻿@page "/"
+@using BlazorApp1.Data
 
-<PageTitle>Index</PageTitle>
+<MudDropContainer T="User" Items="usersList" ItemsSelector="@((item,dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated">
 
-<h1>Hello, world!</h1>
+    <ChildContent>
+        <div class="main">
+            <div class="background">
+                <div class="p-3">
 
-Welcome to your new app.
+                    <MudText Style="@($"color:{Colors.Grey.Lighten5}")">Użytkownicy</MudText>
+                    <div class="d-flex gap-4 mx-4">
+                        <MudDropZone T="User" Identifier="Empty">
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+                        </MudDropZone>
+                    </div>
+                </div>
+            </div>
+
+            <div class="background">
+                <div class="p-3">
+                <div class="tabs">
+                    <button onclick="openCity(event,'group1')" ondragenter="openCity(event,'group1')" class="tab">
+                        grupa1
+                    </button>
+
+                    <button onclick="openCity(event,'group2')" ondragenter="openCity(event,'group2')" class="tab">
+                        grupa2
+                    </button>
+
+                    <button onclick="openCity(event,'group3')" ondragenter="openCity(event,'group3')" class="tab">
+                        grupa3
+                    </button>
+                    <button onclick="openCity(event,'group4')" ondragenter="openCity(event,'group4')" class="tab">
+                        grupa4
+                    </button>
+                    <button onclick="openCity(event,'group5')" ondragenter="openCity(event,'group5')" class="tab">
+                        grupa5
+                    </button>
+                </div>
+
+                <div id="group1" class="tabcontent">
+                    <MudDropZone T="User" Identifier="Group1">
+                        <MudText>Drop zone 11</MudText>
+                    </MudDropZone>
+                </div>
+                <div id="group2" class="tabcontent">
+                    <MudDropZone T="User" Identifier="Group2">
+
+                        <MudText>Drop zone 2</MudText>
+                    </MudDropZone>
+                </div>
+
+                <div id="group3" class="tabcontent">
+                    <MudDropZone T="User" Identifier="Group2">
+
+                        <MudText>Drop zone 3</MudText>
+                    </MudDropZone>
+                </div>
+
+                <div id="group4" class="tabcontent">
+                    <MudDropZone T="User" Identifier="Group2">
+
+                        <MudText>Drop zone 4</MudText>
+                    </MudDropZone>
+                </div>
+
+                <div id="group5" class="tabcontent">
+                    <MudDropZone T="User" Identifier="Group2">
+
+                        <MudText>Drop zone 5</MudText>
+                    </MudDropZone>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*
+        <MudTabs @ref="tabs">
+        <MudTabPanel @ondragenter= '(() => OpenTab(1))' Text="Grupa 1">
+
+
+        </MudTabPanel>
+        <MudTabPanel @ondblclick='(() => OpenTab(2))' Text="Grupa 2">
+
+
+        </MudTabPanel>
+        <MudTabPanel @ondblclick='(() => OpenTab(2))' Text="Grupa 3">
+
+        </MudTabPanel>
+        </MudTabs> *@
+
+    </ChildContent>
+    <ItemRenderer>
+        @* <MudPaper>@context.Name</MudPaper> *@
+
+        <div class="user-card">
+            <div class="user-card-photo">
+                <MudAvatar>
+                    <MudImage Src="@context.ImagePath"></MudImage>
+                </MudAvatar>
+            </div>
+            <div class="user-card-name">
+                <p>@context.Name</p>
+                <p>@context.Surname</p>
+            </div>
+            <div class="user-card-location">
+                <i class="fa-solid fa-location-dot"></i>
+                @context.City
+            </div>
+        </div>
+    </ItemRenderer>
+</MudDropContainer>
